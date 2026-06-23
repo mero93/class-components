@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     icon: '/favicon.svg',
   },
 };
+import '../index.css';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -31,13 +32,17 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <ErrorBoundary>
-      <GlobalProvider locale={locale} messages={messages}>
-        <div className="app-layout-root">
-          <Header />
-          <main className="app-content-frame">{children}</main>
-        </div>
-      </GlobalProvider>
-    </ErrorBoundary>
+   <html lang={locale}>
+      <body>
+        <ErrorBoundary>
+          <GlobalProvider locale={locale} messages={messages}>
+            <div className="app-layout-root">
+              <Header />
+              <main className="app-content-frame">{children}</main>
+            </div>
+          </GlobalProvider>
+        </ErrorBoundary>
+      </body>
+    </html>
   );
 }
